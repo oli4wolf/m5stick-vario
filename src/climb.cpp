@@ -13,7 +13,7 @@
  * Climb update formulae from
  * https://github.com/3s1d/tweety/tree/master/src climb.c
  */
-#include <M5Core2.h>
+#include <M5StickC.h>
 
 #include <stdio.h>
 #include <string.h>
