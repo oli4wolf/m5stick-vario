@@ -8,9 +8,36 @@ MS5637 PressureSensor;
 
 #include "climb.h"
 
-SPEAKER Speaker;
-
 int last_info = millis();
+
+#define BUZZER_PIN 2
+
+#define SOUND_PWM_CHANNEL 0
+#define SOUND_RESOLUTION 8                     // 8 bit resolution
+#define SOUND_ON (1 << (SOUND_RESOLUTION - 1)) // 50% duty cycle
+#define SOUND_OFF 0                            // 0% duty cycle
+
+void tone(int pin, int frequency, int duration)
+{
+  ledcSetup(SOUND_PWM_CHANNEL, frequency, SOUND_RESOLUTION); // Set up PWM channel
+  ledcAttachPin(pin, SOUND_PWM_CHANNEL);                     // Attach channel to pin
+  ledcWrite(SOUND_PWM_CHANNEL, SOUND_ON);
+  delay(duration);
+  ledcWrite(SOUND_PWM_CHANNEL, SOUND_OFF);
+}
+
+void display(int avg_alt, int climb_cms, uint32_t bg_color, uint16_t txt_color)
+{
+  M5.Lcd.setTextSize(3);
+  M5.Lcd.fillScreen(BLACK);
+  M5.Lcd.setTextColor(WHITE);
+  M5.Lcd.setCursor(0, 0);
+  M5.Lcd.println("ALT: ");
+  M5.Lcd.println(average_altitude / 100.0);
+  M5.Lcd.setTextSize(4);
+  M5.Lcd.println("\nm/s: ");
+  M5.Lcd.println((climb_cms * 2.0) / 100.0);
+}
 
 void setup()
 {
@@ -25,8 +52,6 @@ void setup()
   Serial.begin(115200);
 
   M5.Rtc.begin();
-
-  Speaker.begin();
 
   // Initialize Barometer
   if (PressureSensor.begin() == false)
@@ -44,23 +69,6 @@ void setup()
 void loop()
 {
   M5.Lcd.fillScreen(BLACK);
-
-  M5.Rtc.GetTime(&TimeStruct);
-  M5.Lcd.setCursor(0, 15);
-  M5.Lcd.printf("Time: %02d : %02d : %02d/n", TimeStruct.Hours, TimeStruct.Minutes, TimeStruct.Seconds);
-
-  float temperature = PressureSensor.getTemperature();
-  float pressure = PressureSensor.getPressure();
-
-  M5.Lcd.setCursor(0, 100);
-  M5.Lcd.print("Temperature=");
-  M5.Lcd.print(temperature, 1);
-  M5.Lcd.print("(C)");
-  M5.Lcd.println();
-  M5.Lcd.print(" Pressure=");
-  M5.Lcd.print(pressure, 3);
-  M5.Lcd.print("(hPa or mbar)");
-
   M5.Lcd.setTextSize(4);
 
   while (1)
@@ -69,7 +77,6 @@ void loop()
     // Climb
     // Precision of the MS5637 is about 13cm.
 
-    /** Tone logic **/
     if (abs(climb_cms) > 30)
     {
       double sink_ms = (climb_cms * 2.0) / 100.0;
@@ -79,15 +86,11 @@ void loop()
         {
           if (sink_ms < 0.0)
           {
-            M5.Lcd.fillScreen(RED);
-            M5.Lcd.setTextColor(BLACK);
-            M5.Lcd.setCursor(0, 0);
+            display(average_altitude, climb_cms, RED, BLACK);
           }
           else
           {
-            M5.Lcd.fillScreen(GREEN);
-            M5.Lcd.setTextColor(BLACK);
-            M5.Lcd.setCursor(0, 0);
+            display(average_altitude, climb_cms, GREEN, BLACK);
           }
 #ifdef __debug__
           Serial.println(sink_ms);
@@ -97,29 +100,8 @@ void loop()
           Serial.println(duty[i] * (duration[i]));
 #endif
 
-          M5.Lcd.print("ALT: ");
-          M5.Lcd.println(average_altitude);
-          M5.Lcd.print("m/s: ");
-          M5.Lcd.println((climb_cms * 2.0) / 100.0);
-
-          // PlayTone(frequency[i], duty[i] * (duration[i] / 1000.0)); // Playtone is in seconds vTaskDelay in milliseconds
-          // Speaker.tone(frequency[i], (duration[i]));
-          if (i != 5)
-          {
-            Serial.print("Frequency with i:");
-            Serial.println(i);
-            //Speaker.tone(frequency[i]);
-            //Speaker.beep();
-          }
-          else
-          {
-            Serial.println("Mute logic i==5");
-            //Speaker.mute();
-          }
-          // delay(duration[i]);
-          // Speaker.update();
-          //  vTaskDelay(duty[i] * (duration[i]));
-          //  vTaskDelay(duration[i] * (duty[i]/100.0));
+          tone(26, frequency[i], duration[i]);
+          vTaskDelay(duty[i] * (duration[i]));
           last_info = millis();
           break;
         }
@@ -127,14 +109,11 @@ void loop()
     }
     else
     {
-      M5.Lcd.fillScreen(BLACK);
-      M5.Lcd.setTextColor(WHITE);
-      M5.Lcd.setCursor(0, 0);
-      M5.Lcd.print("ALT: ");
-      M5.Lcd.println(average_altitude / 100.0);
-      M5.Lcd.print("\nm/s: ");
-      M5.Lcd.println((climb_cms * 2.0) / 100.0);
+      display(average_altitude, climb_cms, BLACK, WHITE);
+
       vTaskDelay(500);
     }
   }
 }
+
+

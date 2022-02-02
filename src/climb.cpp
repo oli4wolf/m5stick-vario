@@ -63,7 +63,7 @@ static void periodic_timer_callback(void *arg)
 	/* add new value to buffer */
 	volatile int32_t alt_cm = ((1.0f - pow(pressure / 1013.25f, 0.190295f)) * 145366.45f) * 30.48f;
 #ifdef __debug__
-	Serial.println(millis());
+	Serial.print(millis());
 	Serial.print(": Pressure: ");
 	Serial.print(pressure);
 	Serial.print(", alt_cm: ");
