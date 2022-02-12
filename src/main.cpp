@@ -29,8 +29,8 @@ void tone(int pin, int frequency, int duration)
 void display(int avg_alt, int climb_cms, uint32_t bg_color, uint16_t txt_color)
 {
   M5.Lcd.setTextSize(3);
-  M5.Lcd.fillScreen(BLACK);
-  M5.Lcd.setTextColor(WHITE);
+  M5.Lcd.fillScreen(bg_color);
+  M5.Lcd.setTextColor(txt_color);
   M5.Lcd.setCursor(0, 0);
   M5.Lcd.println("ALT: ");
   M5.Lcd.println(average_altitude / 100.0);
