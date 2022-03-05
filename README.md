@@ -1,4 +1,5 @@
 # m5stick-vario
+Just a fun project for myself. </br>
 Initial idea was to try to copy the https://github.com/3s1d/tweety and port it on the m5stack. Just to try it out.</br>
 The first version working was on the M5Core2 but this platform had way more things than required.</br>
 The idee then was to transfert the vario, which i build based on the m5stack-core2, to m5stick-plus-c.</br>
