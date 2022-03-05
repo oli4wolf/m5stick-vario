@@ -1,22 +1,25 @@
 # m5stick-vario
-The idee is to transfert the vario, which i build based on the m5stack-core2, to m5stick-plus-c.
+Initial idea was to try to copy the https://github.com/3s1d/tweety and port it on the m5stack. Just to try it out.</br>
+The first version working was on the M5Core2 but this platform had way more things than required.</br>
+The idee then was to transfert the vario, which i build based on the m5stack-core2, to m5stick-plus-c.</br>
 
-# Differences
-* Removed the sdcard.
-* Different algorithm for the beep.
+# Code Changes from the Tweety.
+The Skytraxx tweety is perfect and i own one and fly Skytraxx. It is perfect for the paragliding.</br>
+But i wanted to tinker arround so i took the climb code with the Linear Regression to try to fit it on the M5Stick.</br>
 
-# TODO
-[OK] Modify Platformio for m5stick.
-[OK] Adapt the Pin adresses for the groove connector.
-[OK] Simplify the screen (green, red, black), only m/s and maybe an arrow.
-[OK] Modify the tone generation to the buzzer.
-[NOK] Volume can not be changed. Maximum with PWM is 50% and it is what we did but it is too low.
-[] Try another external buzzer. -> Have to order one.
-[OK] Tone does not stop after duration.
-[] m/s is not calculated correctly.
-[] duty cycle and duration of the tone is not correct.
+# First Flight test.
+Well it worked pretty well with the air :-) so i probably stop here.</br>
+One issue which, i can't fix quickly is that the polarization of my sunglasses.</br>
 
-Referenz Piezo verwendet PKLCS1212 -> 70 - 85db bei 10cm
+# Improvements
+* m/s is not calculated correctly.</br>
+* duty cycle and duration of the tone is not correct.</br>
+
+# Done
+[OK] Simplify the screen (green, red, black), only m/s and maybe an arrow.</br>
+[OK] Modify the tone generation to the buzzer.</br>
+[NOK] Volume can not be changed. Maximum with PWM is 50% and it is what we did but it is too low.</br>
+[OK] Try another external buzzer. You need the hat or external buzzer. Both worked fine.</br>
 
 # Setbacks
 * The M5StickC example code is useless. Speakerclass didn't work. Volume was not updating etc...
