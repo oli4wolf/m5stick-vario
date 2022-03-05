@@ -4,22 +4,24 @@ The first version working was on the M5Core2 but this platform had way more thin
 The idee then was to transfert the vario, which i build based on the m5stack-core2, to m5stick-plus-c.</br>
 
 # Code Changes from the Tweety.
-The Skytraxx tweety is perfect and i own one and fly Skytraxx. It is perfect for the paragliding.</br>
-But i wanted to tinker arround so i took the climb code with the Linear Regression to try to fit it on the M5Stick.</br>
+The Skytraxx tweety is perfect and i own one and fly Skytraxx also other devices. Well thought products.</br>
+But i wanted to tinker around, so i took the climb code with the Linear Regression to try to fit it on the M5Stick.</br>
 
 # Flight test.
 Well it worked pretty well with the air :-) so i probably stop here.</br>
-It is in no way a match with the tweety but it was fun. </br>
+It is in no way a match with the Tweety but it was fun. </br>
 One issue which, i can't fix quickly is the polarization of my sunglasses.</br>
 
 # Improvements
+* The code is awful. Sorry :-) </br> 
 * m/s is not calculated correctly.</br>
 * duty cycle and duration of the tone is not correct.</br>
+* Actually everything could be improved :-).
 
 # Done
 [OK] Simplify the screen (green, red, black), only m/s and maybe an arrow.</br>
 [OK] Modify the tone generation to the buzzer.</br>
-[NOK] Volume can not be changed. Maximum with PWM is 50% and it is what we did but it is too low.</br>
+[NOK] Volume cannot be changed. Maximum with PWM is 50% and it is what we did but it is too low.</br>
 [OK] Try another external buzzer. You need the hat or external buzzer. Both worked fine.</br>
 
 # Setbacks
