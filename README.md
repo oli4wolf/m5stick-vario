@@ -27,3 +27,8 @@ One issue which, i can't fix quickly is the polarization of my sunglasses.</br>
 
 # Setbacks
 * The M5StickC example code is useless. Speakerclass didn't work. Volume was not updating etc...
+
+# Hardware
+* M5StickC
+* Speaker Hat or Buzzer
+* Grove MS5637
