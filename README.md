@@ -7,9 +7,10 @@ The idee then was to transfert the vario, which i build based on the m5stack-cor
 The Skytraxx tweety is perfect and i own one and fly Skytraxx. It is perfect for the paragliding.</br>
 But i wanted to tinker arround so i took the climb code with the Linear Regression to try to fit it on the M5Stick.</br>
 
-# First Flight test.
+# Flight test.
 Well it worked pretty well with the air :-) so i probably stop here.</br>
-One issue which, i can't fix quickly is that the polarization of my sunglasses.</br>
+It is in no way a match with the tweety but it was fun. </br>
+One issue which, i can't fix quickly is the polarization of my sunglasses.</br>
 
 # Improvements
 * m/s is not calculated correctly.</br>
